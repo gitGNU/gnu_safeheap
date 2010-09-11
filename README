@@ -11,6 +11,10 @@ Log file?
 =========
 check safeheap.log.<pid>
 
+Supported Platforms?
+===================
+Tested on ARM, i386 GNU/Linux systems
+
 features?
 =========
 Detects heap mismanagement and memory corruption in
