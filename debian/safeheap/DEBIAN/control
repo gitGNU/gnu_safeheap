@@ -1,0 +1,9 @@
+Package: safeheap
+Version: 0-20
+Architecture: i386
+Maintainer: Ravi Sankar Guntur <ravi.g@samsung.com>
+Installed-Size: 100
+Depends: libc6 (>= 2.4)
+Section: libs
+Priority: extra
+Description: safeheap is a debug utility for dynamically allocated buffer overrun.

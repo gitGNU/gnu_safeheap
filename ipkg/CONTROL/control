@@ -1,0 +1,11 @@
+Source: safeheap
+Priority: extra
+Maintainer: Ravi Sankar Guntur <ravi.g@samsung.com>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+Section: libs
+Package: libsafeheap
+Architecture: all
+Depends: 
+Description: An utility to debug memory corruptions in C/C++ programs
+Version: 0.19

@@ -1,0 +1,7 @@
+c30d8b1ed325ac2e9c9eb55ceee55779  usr/share/doc/safeheap/changelog.gz
+17c663f84c2c53ab19d65902ff495cca  usr/share/doc/safeheap/README
+93a508d8f9ca7d4c5ccbc042a91231fb  usr/share/doc/safeheap/changelog.Debian.gz
+d6bb3d0a0d0a33e38362df5ced2ffb22  usr/share/doc/safeheap/copyright
+1eed92ab62f193234788c359a4652057  usr/share/doc/safeheap/README.Debian
+34d5dfa7869b2ed276015ab89784b335  usr/lib/libsafeheap.so
+3e432a0df679a23d42db681c7971731d  usr/sbin/run-with-safeheap.sh

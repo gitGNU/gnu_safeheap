@@ -1,0 +1,72 @@
+safeheap (0-20) unstable; urgency=low
+
+  * ctrl char bug fix, removed COPYING file, added header to test files
+
+ -- Ravi Sankar Guntur <ravisankar.g@gmail.com>  Sat, 11 Sep 2010 11:03:04 +0530
+
+safeheap (0-19) unstable; urgency=low
+
+  * add changelog and ipkg support
+
+ -- Ravi Sankar Guntur <ravi.g@samsung.com>  Tue, 15 June 2010 14:58:04 +0530
+
+safeheap (0-18) unstable; urgency=low
+
+ * + double free (error)
+ * + resizing unallocated buffer using realloc (error)
+ * + buffer overrun (error)
+ * + buffer under-run (error)
+ * + writing to already freed buffer (error)
+ * + writing to some random address from heap region (error)
+ * + uninitialized buffer usage (warning)
+ * + test cases                               
+
+ -- Ravi Sankar Guntur <ravi.g@samsung.com>  Mon, 9 June 2010 18:45:36 +0530
+
+safeheap (0-17) unstable; urgency=low
+
+ * + debinaized
+ * + bt added
+
+ -- Ravi Sankar Guntur <ravi.g@samsung.com>  Wed, 26 March 2010 18:45:36 +0530
+
+safeheap (0-16) unstable; urgency=low
+
+ * + Aqilla libc version info
+ * + unneeded defines delted
+ * + Aqilla basic working version release to crowd
+ * + test suite was revamped  
+
+ -- Ravi Sankar Guntur <ravi.g@samsung.com>  fri, 09 Feb 2010 18:45:36 +0530
+
+safeheap (0-1) unstable; urgency=low
+
+  * initial release
+
+ -- Ravi Sankar Guntur <ravi.g@samsung.com>  Tue, 8 Sep 2009 14:58:04 +0530
+
+/*
+  Safeheap detects double free, unallocated free, unallocated realloc, buffer overrun,
+  underrun, unallocated src buffer usage, ininitialized src buffer usage
+  through strcpy, strncpy, strcat, strncat, memcpy, memmove, and memset.
+  Upon detecting abobe cases, applicaiton would be stopped with segmentation fault.
+  This makes it easier to debug the application. 
+
+  Copyright (C) 2009,2010 Ravi Sankar Guntur <ravi.g@samsung.com>
+  
+  Safeheap is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation, either version 3
+  of the License, or any later version.
+ 
+  Safeheap is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Safeheap.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+

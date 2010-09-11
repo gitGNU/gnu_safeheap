@@ -1,0 +1,61 @@
+How to Compile?
+==============
+make
+sudo make install
+
+How to use?
+==========
+run-with-safeheap.sh <app name>
+
+Log file?
+=========
+check safeheap.log.<pid>
+
+features?
+=========
+Detects heap mismanagement and memory corruption in
+dynamically allocated buffers in a C or C++ program.
+Stops applications in below situations and helps in isolating buggy
+code which causes memory corruption.
+	Mismanagement in dynamically allocated memory
+              double free
+              unallocated/invalid free
+              unallocated buffer resize using realloc
+         Memory corruption through string manipulation functions
+         (strcpy, strncpy, strcat, strncat, memcpy, memmove, memset)
+              buffer overrun
+              buffer under-run
+              unallocated src/dst buffer usage
+              uninitialized src buffer usage
+
+• double free (error)
+       • allocates a block of 16 Bytes and immediately double frees the allocated block
+• resizing unallocated buffer using realloc (error)
+       • free unallocated block using realloc(ptr, 0)
+• buffer overrun (error)
+       • allocates a block of 16 Bytes, copy 16+1 Bytes starting from head of allocated block using
+       strcpy and frees the allocated block
+       • allocates a block of 16 Bytes, copy 16 Bytes somewhere from middle of the allocated block
+       using strcpy and frees the allocated block
+• buffer under-run (error)
+       • allocates a block of 16 Bytes, copy 16 Bytes from (block start - 1) address using strcpy and free
+       the allocated block
+• writing to already freed buffer (error)
+       • allocates a block of 16 Bytes, frees the allocated buffer, and copy 16 Bytes to the freed block
+       using strcpy
+• writing to some random address from heap region (error)
+       • copy 16 Bytes to an unallocated block from heap region.
+• copying data from an unallocated buffer in heap region (error)
+       • copy 16 Bytes to local variable of 16 Bytes length from an unallocated src block from heap
+       region
+• uninitialized buffer usage – (warning)
+       • allocates block of 16 Bytes and uses that block as a src buffer in memory copy operations
+       without Initializing the src buffer
+
+TODO: bugs URL & home page needs to be added here. 
+
+The Safehap Library is free software released under GNU LGPL.
+See the file COPYING.LESSER for copying conditions.
+Copyright (C) 2009, 2010 Ravi Sankar Guntur <ravisankar.g@gmail.com>
+
+

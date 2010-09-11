@@ -1,0 +1,109 @@
+/*
+  Safeheap detects double free, unallocated free, unallocated realloc, buffer overrun,
+  underrun, unallocated src buffer usage, ininitialized src buffer usage
+  through strcpy, strncpy, strcat, strncat, memcpy, memmove, and memset.
+  Upon detecting abobe cases, applicaiton would be stopped with segmentation fault.
+  This makes it easier to debug the application. 
+
+  Copyright (C) 2009,2010 Ravi Sankar Guntur <ravisankar.g@gmail.com>
+  
+  Safeheap is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation, either version 3
+  of the License, or any later version.
+ 
+  Safeheap is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Safeheap.  If not, see <http://www.gnu.org/licenses/>.
+
+  This file is part of the test package for Safeheap
+*/
+
+
+/*	Author: Ravi Sankar Guntur; ravi.g@samsung.com
+*	test case: allocate 16 Bytes and free the allocated block
+*	test result: pass
+*/
+#define _POSIX_C_SOURCE 200112L
+#include <stdio.h>
+#include <malloc.h>
+#include <unistd.h>
+#include <time.h>
+
+#define BLOCK_SIZE 16
+
+int tcp1_memalign(void)
+{	
+	char *ptr = NULL;
+	ptr = memalign(4, BLOCK_SIZE); // alignment = 4B
+	if(!ptr)
+		printf("tcp1: memalign fails");
+	free(ptr);
+	ptr = memalign(8, BLOCK_SIZE); // alignment = 8
+	if(!ptr)
+		printf("tcp1: memalign fails");
+	free(ptr);
+	ptr = memalign(1024, BLOCK_SIZE); // alignment = 1024
+	if(!ptr)
+		printf("tcp1: memalign fails");
+	free(ptr);
+	ptr = memalign(1024*1024, BLOCK_SIZE); // alignment = 1024*1024
+	if(!ptr)
+		printf("tcp1: memalign fails");
+	free(ptr);
+}
+int tcp1_valloc(void)
+{
+	char *ptr = NULL;
+	ptr = valloc(BLOCK_SIZE);
+	if(!ptr)
+		printf("tcp1: valloc fails");
+	free(ptr);
+	ptr = valloc(BLOCK_SIZE*100);
+	if(!ptr)
+		printf("tcp1: valloc fails");
+	free(ptr);
+	ptr = valloc(1024*1024);
+	if(!ptr)
+		printf("tcp1: valloc fails");
+	free(ptr);
+	
+}
+
+int tcp1_pmemalign(void)
+{	
+	int *ptr = NULL;
+	int ret;
+	ret = posix_memalign((void *)&ptr, 4, BLOCK_SIZE); // alignment = 4B
+	if(ret)
+		printf("tcp1: pmemalign fails");
+	free(ptr);
+	ret = posix_memalign((void *)&ptr, 8, BLOCK_SIZE); // alignment = 8
+	if(ret)
+		printf("tcp1: pmemalign fails");
+	free(ptr);
+	ret = posix_memalign((void *)&ptr, 1024, BLOCK_SIZE); // alignment = 1024
+	if(ret)
+		printf("tcp1: pmemalign fails");
+	free(ptr);
+	ret = posix_memalign((void *)&ptr, 1024*1024, BLOCK_SIZE); // alignment = 1024*1024
+	if(ret)
+		printf("tcp1: pmemalign fails");
+	free(ptr);
+	ret = posix_memalign((void *)&ptr, 10, BLOCK_SIZE); // alignment = 10
+	if(!ret)
+		printf("tcp1: pmemalign fails: not working for wrong alignment");
+	return 0;
+}
+
+int main(void)
+{
+	tcp1_memalign();
+	tcp1_valloc();
+	tcp1_pmemalign();
+	return 0;
+}
